@@ -44,18 +44,5 @@ public:
         tail = newNode;
         size++;
     }
-    virtual void print() {
-        if (!head) {
-            std::cout << '\n';
-            return;
-        }
-        auto cur = this->head;
-        while (cur != this->tail) {
-            std::cout << cur->item << ' ';
-            cur = cur->next;
-        }
-        std::cout << cur->item << ' ';
-        std::cout << '\n';
-    }
 };
 #endif //SUFFIX_TREE_DATA_STRUCTURE_SINGLELINKEDLIST_H
