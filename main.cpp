@@ -2,10 +2,8 @@
 #include <cstdlib>
 #include <cstdio>
 #include <cstring>
-
 using namespace std;
-
-int main(){
+int main() {
     // Construct a suffix tree containing all suffixes of "bananabanaba$"
 
     //              0123456789012
