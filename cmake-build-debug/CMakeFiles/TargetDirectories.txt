@@ -1,0 +1,3 @@
+C:/Users/DELL 5480/CLionProjects/DS2A1/cmake-build-debug/CMakeFiles/Suffix_Tree_Data_Structure.dir
+C:/Users/DELL 5480/CLionProjects/DS2A1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/DELL 5480/CLionProjects/DS2A1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
