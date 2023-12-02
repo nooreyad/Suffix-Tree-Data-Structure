@@ -3,16 +3,14 @@
 #ifndef NODE
 #define NODE
 
+template <class T>
 struct SuffixNode {
-    LinkedList list = *new LinkedList();
-    int startIndex;
-    int suffixStartIndex;
+private:
+    LinkedList<T> list = new LinkedList<T>();
+    int startIndex{-1};
+    int suffixStartIndex{-1};
     /// this constructor will be used to create the head and tail nodes for the linked list;
-    SuffixNode()
-    {
-        startIndex = -1;
-        suffixStartIndex = -1;
-    }
+public:
     /// this constructor will be used to create leaf nodes of the suffix
     SuffixNode(int startIndex, int suffixStartIndex)
     {

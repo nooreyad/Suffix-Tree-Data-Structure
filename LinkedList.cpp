@@ -27,7 +27,6 @@ struct Node{
 template<class T>
 class LinkedList{
 private:
-private:
     Node<T>* head;
     Node<T>* tail;
     int size = 0;
