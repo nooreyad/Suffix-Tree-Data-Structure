@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include <cstdio>
 #include <cstring>
+#include "LinkedList.cpp"
+#include "SuffixTree.cpp"
 
 using namespace std;
 
@@ -15,6 +17,9 @@ int main(){
     //t.Search("naba"); // Prints: 4 8
 
     // Add test cases here.
+
+
+//SuffixTree t;
 
     return 0;
 }

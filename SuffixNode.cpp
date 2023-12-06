@@ -3,10 +3,10 @@
 #ifndef NODE
 #define NODE
 
-template <class T>
+
 struct SuffixNode {
 private:
-    LinkedList<T> list = new LinkedList<T>();
+    LinkedList<SuffixNode> list ;
     int startIndex{-1};
     int suffixStartIndex{-1};
     /// this constructor will be used to create the head and tail nodes for the linked list;
@@ -23,6 +23,7 @@ public:
         this->startIndex = startIndex;
         suffixStartIndex = -1;
     }
+    SuffixNode()= default;
     /// this function overrides the == operator to check if a node is equal to another
     bool operator== (const SuffixNode &nd) const{
         if (nd.suffixStartIndex == suffixStartIndex && nd.startIndex == startIndex)

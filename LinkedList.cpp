@@ -1,5 +1,5 @@
 #include <iostream>
-#include "SuffixNode.cpp"
+
 using namespace std;
 
 #ifndef LINKED_LIST
@@ -39,13 +39,13 @@ public:
     /// this function checks if a list is empty
     bool isEmpty() const { return size == 0; }
     /// this function searches for a node in the list
-    Node<T>* search(Node<T> nd)
+    Node<T>* search(T info)
     {
         Node<T>* current = head;
         for (int i = 0; i < size; i++)
         {
             // if the node is found, return it
-            if (current == &nd) return current;
+            if (current->item == info) return current;
             current = current->next;
         }
         // if the whole list is searched and the node isn't found,
@@ -53,17 +53,17 @@ public:
         return nullptr;
     }
     /// this function removes a node from a list
-    void remove(Node<T>* nd)
+    void remove(T info)
     {
         // if the node is the head of the list
-        if (nd == head)
+        if (info == head->item)
         {
             Node<T>* temp = head;
             head = head->next; // let the next of the head be the new head
             free(temp);
         }
         // if the node is the tail
-        else if (nd == tail){
+        else if (info == tail->item){
             Node<T>* current = head;
             while (current->next != tail) // loop on the list until the tail is the next to the current node
                 current = current->next;
@@ -75,7 +75,7 @@ public:
         // if the node is neither the head nor the tail (could be found or not)
         else{
             Node<T>* current = head;
-            while (current->next != nd){ // loop on the list until the node to be removed is next
+            while (current->next->item != info){ // loop on the list until the node to be removed is next
                 current = current->next;
                 // if the loop has come to an end and the node isn't yet found, let the user know it doesn't exist
                 if(current == tail)
