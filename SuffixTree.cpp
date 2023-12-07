@@ -1,17 +1,13 @@
-//
-// Created by Rana Essam on 12/4/2023.
-//
-#include "SuffixNode.cpp"
-
-
+#include "SuffixNode.h"
 class SuffixTree{
-    SuffixNode root;
+    SuffixNode* root;
     int len;
     char str[]; // pointer
 
     explicit SuffixTree( char str [], int len){
         strcpy(this->str, str);
         this->len = len;
+        root = new SuffixNode();
     }
     int getIndex(char crnt){
         for (int i = 0; i < len ; ++i) {
@@ -23,13 +19,23 @@ class SuffixTree{
     }
     // O^3
     void build(){
+        strcat(str, "$");
+        len++;
         for (int i = 0; i < len; ++i) {
-            for (int j = i; j < len ; ++j) {
-
-            }
         }
     }
+    void insert(int start){
 
+        if(root->suffixes){
+            root->list.insert(start, start);
+            return;
+        }
+
+        if(root->list.)
+
+
+
+    }
 
 
 };
