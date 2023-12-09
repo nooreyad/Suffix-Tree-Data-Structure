@@ -21,8 +21,6 @@ public:
     }
     // O^3
     void build(){
-        strcat(str, "$");
-        len++;
         for (int i = 0; i < len; ++i) {
             insert(i);
         }
@@ -33,7 +31,7 @@ public:
             root->suffixes.insert(new SuffixNode(start, start));
             return;
         }
-        root->suffixes.search(start, str, root, len );
+        root->suffixes.search(start, str, root, len,  start);
     }
 
 
