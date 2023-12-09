@@ -1,7 +1,7 @@
 class SuffixNode {
 public:
-    int startIndex{};
-    int suffixStartIndex{};
+    int startIndex=-1;
+    int suffixStartIndex=-1;
 
     class Node {
     public:
@@ -82,22 +82,35 @@ public:
         {
             Node* current = head;
             int temp = index;
+            int sz= -1;
+
             for (int i = 0; i < size; i++) // TODO
             {
                 // if the node is found, return it
                 if(str[current->data->startIndex] == str[index]) {
-                    int sz;
                     if(current->data->suffixStartIndex != -1){
                         sz = len - current->data->startIndex;
+
                     }
                     else{
-                       int minStart= getMinNode(current);
+                       int minStart= current->data->suffixes.getMinNode();
                        sz =minStart- current->data->startIndex;
+                       std::cout << "here "<<minStart << '\n';
+                       std::cout<< "here2 " << current->data->startIndex << '\n';
+
                     }
                     ///
                     int j;
+                    std::cout<< index << '\n';
+                    std::cout<< "startindex"<<current->data->startIndex <<'\n';
+                    std::cout << sz << '\n';
                     for ( j = current->data->startIndex; j <sz  ; ++j) {
+                        std::cout<< str[j] << std::endl;
+                        std::cout<< str[index] << std::endl;
+                        std::cout<< str << '\n' ;
+
                         if(str[j] != str[index++]){
+                            index--;
                           int id=  current->data->suffixStartIndex;
                             current->data->suffixStartIndex = -1;
                             auto* newNode =  new SuffixNode(j -current->data->startIndex+temp, temp);
@@ -107,30 +120,37 @@ public:
                             return prev;
                         }
                     }
-
-                    if(j != len-1){
+                    std::cout << index <<'\n';
+                    std::cout<< j << '\n';
+                    if(index != len-1){
                         std::cout << "here";
                     }
+
+
                     return current->data;
                 }
                 current = current->next;
             }
+
             prev->suffixes.insert(new SuffixNode(index, index));
             // if the whole list is searched and the node isn't found,
             // return null pointer
             return nullptr;
         }
 
-     int getMinNode(Node* current ){
-            SuffixNode* min = current->data;
-            while (current){
-                if(current->data->startIndex < min->startIndex){
-                    min = current->data;
+     int getMinNode(){
+            int mn = 1e6;
+            Node* c = head;
+            for(int i = 0 ; i < size ; i++){
+                if(mn > c->data->startIndex){
+                    mn = c->data->startIndex;
                 }
-                current = current->next;
+                c = c->next;
             }
-            return min->startIndex;
+         return mn;
+
         }
+
     };
 
 

@@ -9,11 +9,12 @@ using namespace std;
 int main(){
     // Construct a suffix tree containing all suffixes of "bananabanaba$"
 
-    char str[14];
-
-    strcpy(str, "banana");
+    char *str ;
+    char str2[] =  "bananabanana";
+    str = &str2[0];
     //              0123456789012
-    SuffixTree *t= new SuffixTree(str, 6);
+    SuffixTree *t= new SuffixTree(str, 12);
+
 
 
     //t.Search("ana"); // Prints: 1 3 7

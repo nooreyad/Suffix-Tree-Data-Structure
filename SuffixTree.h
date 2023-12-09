@@ -2,11 +2,11 @@
 class SuffixTree{
     SuffixNode* root;
     int len;
-    char str[]; // pointer
+    char *str; // pointer
 
 public:
-    SuffixTree( char str [], int len){
-        strcpy(this->str, str);
+    SuffixTree( char *str , int len){
+        this->str = str;
         this->len = len;
         root = new SuffixNode();
         build();
