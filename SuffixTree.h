@@ -1,4 +1,5 @@
 #include "SuffixNode.h"
+
 class SuffixTree{
     SuffixNode* root;
     int len;
@@ -22,16 +23,8 @@ public:
     // O^3
     void build(){
         for (int i = 0; i < len; ++i) {
-            insert(i);
+            root->suffixes.search(i, str, root, len,  i);
         }
-    }
-    void insert(int start){
-
-        if(root->suffixes.isEmpty()){
-            root->suffixes.insert(new SuffixNode(start, start));
-            return;
-        }
-        root->suffixes.search(start, str, root, len,  start);
     }
 
 

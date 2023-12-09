@@ -10,10 +10,10 @@ int main(){
     // Construct a suffix tree containing all suffixes of "bananabanaba$"
 
     char *str ;
-    char str2[] =  "bananabanaba$";
-    str = &str2[0];
+    char str2[] =  "nbnbbbbbbbbbbbbbbb$";
+
     //              0123456789012
-    SuffixTree *t= new SuffixTree(str, 12);
+    SuffixTree *t= new SuffixTree(&str2[0], 19);
 
 
 
