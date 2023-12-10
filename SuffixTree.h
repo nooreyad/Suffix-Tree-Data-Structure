@@ -64,8 +64,12 @@ public:
     // O^3
     void build() {
         for (int i = 0; i < len; ++i) {
-            root->suffixes.search(i, str, root, len, i);
+            root->suffixes.searchToBuild(i, str, root, len, i);
         }
+    }
+
+    void search(char *s, int sz){
+        root->suffixes.searchFor(0, s, sz, 0, str);
     }
 
 //

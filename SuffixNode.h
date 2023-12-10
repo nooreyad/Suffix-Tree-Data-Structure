@@ -1,11 +1,15 @@
+#include <iostream>
+
 class SuffixNode {
 public:
     int startIndex = -1;
     int suffixStartIndex = -1;
+
     class Node {
     public:
         SuffixNode *data;
         Node *next;
+
         Node(SuffixNode *data, Node *next) {
             this->data = data;
             this->next = next;
@@ -30,6 +34,7 @@ public:
             }
             return current->data;
         }
+
         int getSize() {
             return size;
         }
@@ -51,7 +56,7 @@ public:
 //01234567890123
 //bananabanaba$
         /// this function searches for a substring that matches the new suffix and insert it in the right place
-        SuffixNode *search(int index, const char *str, SuffixNode *prev, int len, int temp) {
+        SuffixNode *searchToBuild(int index, const char *str, SuffixNode *prev, int len, int temp) {
             Node *current = head;
             int sz = -1;
             std::cout << (index != temp) << '\n';
@@ -60,7 +65,8 @@ public:
             for (int i = 0; i < size; i++) // loop on all the suffixes that the node has
             {
                 // if the node is found, return it
-                if (str[current->data->startIndex] == str[index]) { // if the first letter of the suffix is the same as the first letter of the new suffix
+                if (str[current->data->startIndex] ==
+                    str[index]) { // if the first letter of the suffix is the same as the first letter of the new suffix
                     std::cout << "start index = " << current->data->startIndex << '\n';
                     // this if statement to get the size of the substring that the edge has
                     if (current->data->suffixStartIndex != -1) {
@@ -77,7 +83,7 @@ public:
                     // this for loop to check if the substring matches the new suffix
                     int j;
 
-                    std::cout << "size =    "<< sz << '\n';
+                    std::cout << "size =    " << sz << '\n';
                     for (j = current->data->startIndex; j < sz + current->data->startIndex; ++j) {
                         std::cout << '\n';
                         std::cout << str[j] << std::endl;
@@ -109,7 +115,7 @@ public:
                     std::cout << "current index = " << index << '\n';
                     std::cout << j << '\n';
                     // if the all the substring of the current node matches the new suffix, so we will complete searching in its children
-                    return current->data->suffixes.search(index, str, current->data, len, temp);
+                    return current->data->suffixes.searchToBuild(index, str, current->data, len, temp);
 
                 }
                 current = current->next;
@@ -136,10 +142,71 @@ public:
             }
             return mn;
         }
+
+        void printLeafNodes() {
+            Node *current = head;
+            for (int i = 0; i < size; i++)
+            {
+                if (current->data->suffixStartIndex != -1)
+                {
+                    std::cout << current->data->suffixStartIndex << " ";
+                }
+                else
+                {
+                    current->data->suffixes.printLeafNodes();
+                }
+                current = current->next;
+            }
+
+        }
+
+        SuffixNode *searchFor(int index, const char *str, int len, int temp, char *searchString) {
+            Node *current = head;
+            int sz = -1;
+            for (int i = 0; i < size; i++) // loop on all the suffixes that the node has
+            {
+                // if the node is found, return it
+                if (searchString[current->data->startIndex] ==
+                    str[index]) { // if the first letter of the suffix is the same as the first letter of the new suffix
+                    // this if statement to get the size of the substring that the edge has
+                    if (current->data->suffixStartIndex != -1) {
+                        // and if the node is leaf, the size is the length of the string - the start index of the suffix
+                        sz = len - current->data->startIndex;
+                    } else {
+                        // else the size = minStartOfChildren  - the start index of the suffix
+                        int minStart = current->data->suffixes.getMinNode();
+                        sz = minStart - current->data->startIndex;
+                    }
+                    // this for loop to check if the substring matches the new suffix
+                    int j;
+                    for (j = current->data->startIndex; j < sz + current->data->startIndex; ++j) {
+                        // if the current index doesn't match the new suffix then here we will split the node
+                        if (searchString[j] != str[index] && index == len) {
+                            current->data->suffixes.printLeafNodes();
+                            return nullptr;
+                        } else if (searchString[j] != str[index] && index < len) {
+                            std::cout << "NOT FOUND!" << std::endl;
+                            return nullptr;
+                        } else if (searchString[j] == str[index] && index < len) {
+                            index++;
+                        }
+                    }
+                    if (searchString[j] != str[index] && index == len) {
+                        current->data->suffixes.printLeafNodes();
+                        return nullptr;
+                    } else if (searchString[j] != str[index] && index < len) {
+                        std::cout << "NOT FOUND!" << std::endl;
+                        return nullptr;
+                    }
+                    return current->data->suffixes.searchFor(index, str, len, temp, searchString);
+                }
+                current = current->next;
+            }
+
+            std::cout << "here new node is added" << '\n';
+            return nullptr;
+        }
     };
-
-
-
 
 
     /// this list contains all the suffixes of the current node
