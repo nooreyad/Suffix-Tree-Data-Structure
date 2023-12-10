@@ -23,6 +23,17 @@ public:
             tail = nullptr;
         }
 
+        SuffixNode *get(int index) {
+            Node *current = head;
+            for (int i = 0; i < index; i++) {
+                current = current->next;
+            }
+            return current->data;
+        }
+        int getSize() {
+            return size;
+        }
+
         void insert(SuffixNode *data) {
             size++;
             Node *newNode = new Node(data, nullptr);
@@ -86,6 +97,8 @@ public:
 
                             // the second new node which will include the rest of the suffix of the current node before splitting
                             auto *newNode2 = new SuffixNode(j, id);
+                            newNode2->suffixes = current->data->suffixes;
+                            current->data->suffixes = LinkedList();
 
                             // inserting the new nodes in the list of the current node
                             current->data->suffixes.insert(newNode2);
@@ -124,6 +137,9 @@ public:
             return mn;
         }
     };
+
+
+
 
 
     /// this list contains all the suffixes of the current node

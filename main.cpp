@@ -10,10 +10,11 @@ int main(){
     // Construct a suffix tree containing all suffixes of "bananabanaba$"
 
     char *str ;
-    char str2[] =  "nbnbbbbbbbbbbbbbbb$";
+    char str2[] =  "anaxan$";
 
     //              0123456789012
-    SuffixTree *t= new SuffixTree(&str2[0], 19);
+    SuffixTree *t= new SuffixTree(&str2[0], 7);
+    t->print();
 
 
 
@@ -23,7 +24,34 @@ int main(){
     // Add test cases here.
 
 
+
+
 //SuffixTree t;
 
     return 0;
 }
+
+/*
+ * input:
+panamabananas$
+[10, 4, 7] parent(2) -> nas$
+ * */
+
+
+
+
+
+
+//input:
+//anaxan$
+
+
+//[6, 1, 4] parent(1) -> $
+
+
+
+
+
+
+
+
