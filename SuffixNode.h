@@ -179,23 +179,18 @@ public:
                     }
                     // this for loop to check if the substring matches the new suffix
                     int j;
-                    for (j = current->data->startIndex; j < sz + current->data->startIndex; ++j) {
+                    for (j = current->data->startIndex; j < sz + current->data->startIndex; ++j, index++) {
                         // if the current index doesn't match the new suffix then here we will split the node
                         if (searchString[j] != str[index] && index == len) {
                             current->data->suffixes.printLeafNodes();
                             return nullptr;
                         } else if (searchString[j] != str[index] && index < len) {
-                            std::cout << "NOT FOUND!" << std::endl;
+                            std::cout << "NOT FOUND! \a" << std::endl;
                             return nullptr;
-                        } else if (searchString[j] == str[index] && index < len) {
-                            index++;
                         }
                     }
                     if (searchString[j] != str[index] && index == len) {
                         current->data->suffixes.printLeafNodes();
-                        return nullptr;
-                    } else if (searchString[j] != str[index] && index < len) {
-                        std::cout << "NOT FOUND!" << std::endl;
                         return nullptr;
                     }
                     return current->data->suffixes.searchFor(index, str, len, temp, searchString);
@@ -203,7 +198,7 @@ public:
                 current = current->next;
             }
 
-            std::cout << "here new node is added" << '\n';
+            std::cout << "NOT FOUND! \a" << '\n';
             return nullptr;
         }
     };
