@@ -44,10 +44,10 @@ public:
             for (int i = 0; i < size; i++)
             {
                 // TODO
-//                // if the node is found, return it
-//                if(current->item->startIndex == info) {
-//                    current = current->next;
-//                }
+               // if the node is found, return it
+               if(current->item->startIndex == info) {
+                    current = current->next;
+               }
             }
             // if the whole list is searched and the node isn't found,
             // return null pointer

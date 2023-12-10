@@ -22,6 +22,7 @@ class SuffixTree{
         strcat(str, "$");
         len++;
         for (int i = 0; i < len; ++i) {
+            insert(i);
         }
     }
     void insert(int start){
@@ -31,9 +32,7 @@ class SuffixTree{
             return;
         }
 
-        if(root->list.)
-
-
+        if(root->suffixes.)
 
     }
 
