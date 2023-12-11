@@ -55,18 +55,6 @@ build CMakeFiles/Suffix_Tree_Data_Structure.dir/main.cpp.obj: CXX_COMPILER__Suff
   OBJECT_DIR = CMakeFiles\Suffix_Tree_Data_Structure.dir
   OBJECT_FILE_DIR = CMakeFiles\Suffix_Tree_Data_Structure.dir
 
-build CMakeFiles/Suffix_Tree_Data_Structure.dir/LinkedList.cpp.obj: CXX_COMPILER__Suffix_Tree_Data_Structure_Debug D$:/GitHub/Suffix-Tree-Data-Structure/LinkedList.cpp || cmake_object_order_depends_target_Suffix_Tree_Data_Structure
-  DEP_FILE = CMakeFiles\Suffix_Tree_Data_Structure.dir\LinkedList.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always -std=gnu++14
-  OBJECT_DIR = CMakeFiles\Suffix_Tree_Data_Structure.dir
-  OBJECT_FILE_DIR = CMakeFiles\Suffix_Tree_Data_Structure.dir
-
-build CMakeFiles/Suffix_Tree_Data_Structure.dir/Node.cpp.obj: CXX_COMPILER__Suffix_Tree_Data_Structure_Debug D$:/GitHub/Suffix-Tree-Data-Structure/Node.cpp || cmake_object_order_depends_target_Suffix_Tree_Data_Structure
-  DEP_FILE = CMakeFiles\Suffix_Tree_Data_Structure.dir\Node.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always -std=gnu++14
-  OBJECT_DIR = CMakeFiles\Suffix_Tree_Data_Structure.dir
-  OBJECT_FILE_DIR = CMakeFiles\Suffix_Tree_Data_Structure.dir
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Suffix_Tree_Data_Structure
@@ -75,7 +63,7 @@ build CMakeFiles/Suffix_Tree_Data_Structure.dir/Node.cpp.obj: CXX_COMPILER__Suff
 #############################################
 # Link the executable Suffix_Tree_Data_Structure.exe
 
-build Suffix_Tree_Data_Structure.exe: CXX_EXECUTABLE_LINKER__Suffix_Tree_Data_Structure_Debug CMakeFiles/Suffix_Tree_Data_Structure.dir/main.cpp.obj CMakeFiles/Suffix_Tree_Data_Structure.dir/LinkedList.cpp.obj CMakeFiles/Suffix_Tree_Data_Structure.dir/Node.cpp.obj
+build Suffix_Tree_Data_Structure.exe: CXX_EXECUTABLE_LINKER__Suffix_Tree_Data_Structure_Debug CMakeFiles/Suffix_Tree_Data_Structure.dir/main.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Suffix_Tree_Data_Structure.dir

@@ -4,16 +4,17 @@
 #include <cstring>
 #include "SuffixTree.h"
 
-using namespace std;
-
 int main(){
     // Construct a suffix tree containing all suffixes of "bananabanaba$"
 
     char *str ;
-    char str2[] =  "nbnbbbbbbbbbbbbbbb$";
-
     //              0123456789012
-    SuffixTree *t= new SuffixTree(&str2[0], 19);
+    char str2[] =  "bananabanaba$";
+
+
+    SuffixTree *t= new SuffixTree(&str2[0], 13);
+    t->print();
+    t->search("s", 1);
 
 
 
@@ -23,7 +24,34 @@ int main(){
     // Add test cases here.
 
 
+
+
 //SuffixTree t;
 
     return 0;
 }
+
+/*
+ * input:
+panamabananas$
+[10, 4, 7] parent(2) -> nas$
+ * */
+
+
+
+
+
+
+//input:
+//anaxan$
+
+
+//[6, 1, 4] parent(1) -> $
+
+
+
+
+
+
+
+
