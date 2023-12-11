@@ -99,7 +99,7 @@ public:
                             current->data->suffixStartIndex = -1;
 
                             // the first new node which will include the rest of the new suffix
-                            auto *newNode = new SuffixNode(j - current->data->startIndex + temp, temp);
+                            auto *newNode = new SuffixNode(index, temp);
 
                             // the second new node which will include the rest of the suffix of the current node before splitting
                             auto *newNode2 = new SuffixNode(j, id);
@@ -160,7 +160,8 @@ public:
 
         }
 
-        SuffixNode *searchFor(int index, const char *str, int len, int temp, char *searchString) {
+        SuffixNode *searchFor(int index, const char *str,int sublen
+                , int len, int temp, char *searchString) {
             Node *current = head;
             int sz = -1;
             for (int i = 0; i < size; i++) // loop on all the suffixes that the node has
@@ -181,19 +182,29 @@ public:
                     int j;
                     for (j = current->data->startIndex; j < sz + current->data->startIndex; ++j, index++) {
                         // if the current index doesn't match the new suffix then here we will split the node
-                        if (searchString[j] != str[index] && index == len) {
-                            current->data->suffixes.printLeafNodes();
+                        if (searchString[j] != str[index] && index == sublen) {
+                            if(current->data->suffixStartIndex != -1){
+                                std::cout << current->data->suffixStartIndex << " ";
+                            }
+                            else{
+                                current->data->suffixes.printLeafNodes();
+                            }
                             return nullptr;
-                        } else if (searchString[j] != str[index] && index < len) {
+                        } else if (searchString[j] != str[index] && index < sublen) {
                             std::cout << "NOT FOUND! \a" << std::endl;
                             return nullptr;
                         }
                     }
-                    if (searchString[j] != str[index] && index == len) {
-                        current->data->suffixes.printLeafNodes();
+                    if (index == sublen) {
+                        if(current->data->suffixStartIndex != -1){
+                            std::cout << current->data->suffixStartIndex << " ";
+                        }
+                        else{
+                            current->data->suffixes.printLeafNodes();
+                        }
                         return nullptr;
                     }
-                    return current->data->suffixes.searchFor(index, str, len, temp, searchString);
+                    return current->data->suffixes.searchFor(index, str,sublen, len, temp, searchString);
                 }
                 current = current->next;
             }
@@ -214,4 +225,3 @@ public:
 
     SuffixNode() = default;
 };
-

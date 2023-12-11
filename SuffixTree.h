@@ -7,7 +7,7 @@ class SuffixTree {
 
     void print(SuffixNode *current , SuffixNode *prev ) {
         int ln = current->suffixStartIndex == -1 ?  current->suffixes.getMinNode()- current->startIndex : len-
-                                                      current->startIndex;
+                                                                                                          current->startIndex;
         char *edgeStr = new char[ln + 1];
         if (current != root) {
             strncpy(edgeStr, str + current->startIndex, ln);
@@ -69,30 +69,8 @@ public:
     }
 
     void search(char *s, int sz){
-        root->suffixes.searchFor(0, s, sz, 0, str);
+        root->suffixes.searchFor(0, s, sz,len, 0, str);
     }
-
-//
-//    void print(SuffixNode *node, SuffixNode *p) {
-//        int ln = node->suffixStartIndex == -1 ? len - node->startIndex : node->suffixStartIndex - node->startIndex;
-//
-//        char *edgeStr = new char[ln + 1];
-//        if (node != root) {
-//            strncpy(edgeStr, str + node->startIndex, ln);
-//            edgeStr[ln] = '\0';
-//            std::cout << "[" << node->startIndex << ", " << ln << ", " << node->suffixStartIndex <<
-//                      "] parent(" << p->startIndex << ") -> " << edgeStr << '\n';
-//        }
-//
-//        node->suffixes.resetNext();
-//        SuffixNode *curChild;
-//        while (true) {
-//            curChild = node->children.getNext();
-//            if (!curChild) return;
-//            print(curChild, node);
-//        }
-//    }
-
 
     void print(){
         print(root, root);
