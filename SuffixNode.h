@@ -145,6 +145,7 @@ public:
 
         void printLeafNodes() {
             Node *current = head;
+
             for (int i = 0; i < size; i++)
             {
                 if (current->data->suffixStartIndex != -1)
@@ -160,14 +161,13 @@ public:
 
         }
 
-        SuffixNode *searchFor(int index, const char *str, int len, int temp, char *searchString) {
+        SuffixNode *searchFor(int index, const char *str, int subLen,int len,  int temp, char *searchString) {
             Node *current = head;
             int sz = -1;
             for (int i = 0; i < size; i++) // loop on all the suffixes that the node has
             {
                 // if the node is found, return it
-                if (searchString[current->data->startIndex] ==
-                    str[index]) { // if the first letter of the suffix is the same as the first letter of the new suffix
+                if (searchString[current->data->startIndex] == str[index]) { // if the first letter of the suffix is the same as the first letter of the new suffix
                     // this if statement to get the size of the substring that the edge has
                     if (current->data->suffixStartIndex != -1) {
                         // and if the node is leaf, the size is the length of the string - the start index of the suffix
@@ -178,22 +178,31 @@ public:
                         sz = minStart - current->data->startIndex;
                     }
                     // this for loop to check if the substring matches the new suffix
-                    int j;
-                    for (j = current->data->startIndex; j < sz + current->data->startIndex; ++j, index++) {
+                    int j, start = current->data->startIndex;
+                    for (j = current->data->startIndex; j < sz + current->data->startIndex   ; ++j, index++) {
                         // if the current index doesn't match the new suffix then here we will split the node
-                        if (searchString[j] != str[index] && index == len) {
-                            current->data->suffixes.printLeafNodes();
+                        if (searchString[j] != str[index] && index == subLen) {
+                            if(current->data->suffixStartIndex != -1){
+                                std::cout << current->data->suffixStartIndex << " ";
+                            } else {
+                                current->data->suffixes.printLeafNodes();
+                            }
+
                             return nullptr;
-                        } else if (searchString[j] != str[index] && index < len) {
+                        } else if (searchString[j] != str[index] && index < subLen) {
                             std::cout << "NOT FOUND! \a" << std::endl;
                             return nullptr;
                         }
                     }
-                    if (searchString[j] != str[index] && index == len) {
-                        current->data->suffixes.printLeafNodes();
+                    if ( index == subLen) {
+                        if(current->data->suffixStartIndex != -1){
+                            std::cout << current->data->suffixStartIndex << " ";
+                        } else {
+                            current->data->suffixes.printLeafNodes();
+                        }
                         return nullptr;
                     }
-                    return current->data->suffixes.searchFor(index, str, len, temp, searchString);
+                    return current->data->suffixes.searchFor(index, str,subLen ,len, temp, searchString);
                 }
                 current = current->next;
             }

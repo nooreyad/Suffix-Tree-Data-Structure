@@ -14,7 +14,7 @@ int main(){
 
     SuffixTree *t= new SuffixTree(&str2[0], 13);
     t->print();
-    t->search("s", 1);
+    t->search("naba$", 5);
 
 
 

@@ -69,7 +69,7 @@ public:
     }
 
     void search(char *s, int sz){
-        root->suffixes.searchFor(0, s, sz, 0, str);
+        root->suffixes.searchFor(0, s, sz, len, 0, str);
     }
 
 //
