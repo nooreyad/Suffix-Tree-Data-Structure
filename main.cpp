@@ -4,7 +4,6 @@
 #include <cstring>
 
 
-
 class SuffixNode {
 public:
 
@@ -16,7 +15,8 @@ public:
         SuffixNode *data;
         Node *next;
 
-        Node(SuffixNode *data, Node *next) {
+        Node(SuffixNode *data, Node *next)
+        {
             this->data = data;
             this->next = next;
         }
@@ -39,9 +39,12 @@ public:
         {
             size++;
             Node *newNode = new Node(data, nullptr);
-            if (head == nullptr) {
+            if (head == nullptr)
+            {
                 head = tail = newNode;
-            } else {
+            }
+            else
+            {
                 tail->next = newNode;
                 tail = newNode;
             }
@@ -58,14 +61,17 @@ public:
             for (int i = 0; i < size; i++) // loop on all the suffixes that the node has
             {
                 // if the node is found, return it
-                if (str[current->data->startIndex] == str[index]) { // if the first letter of the suffix is the same as the first letter of the new suffix
+                if (str[current->data->startIndex] ==
+                    str[index]) { // if the first letter of the suffix is the same as the first letter of the new suffix
                     // this if statement to get the size of the substring that the edge has
-                    if (current->data->suffixStartIndex != -1) {
+                    if (current->data->suffixStartIndex != -1)
+                    {
 
                         // and if the node is leaf, the size is the length of the string - the start index of the suffix
                         sz = len - current->data->startIndex;
-                    } else {
-
+                    }
+                    else
+                    {
                         // else the size = minStartOfChildren  - the start index of the suffix
                         int minStart = current->data->suffixes.getMinNode();
                         sz = minStart - current->data->startIndex;
@@ -79,7 +85,8 @@ public:
                     {
 
                         // if the current index doesn't match the new suffix then here we will split the node
-                        if (str[j] != str[index++]) {
+                        if (str[j] != str[index++])
+                        {
                             index--;
                             // sava the id of the suffix of the current node to be used in one of the new nodes
                             int id = current->data->suffixStartIndex;
@@ -123,8 +130,10 @@ public:
         {
             int mn = 1e6;
             Node *c = head;
-            for (int i = 0; i < size; i++) {
-                if (mn > c->data->startIndex) {
+            for (int i = 0; i < size; i++)
+            {
+                if (mn > c->data->startIndex)
+                {
                     mn = c->data->startIndex;
                 }
                 c = c->next;
@@ -132,11 +141,14 @@ public:
             return mn;
         }
 
+        /// this function used to print the suffix start index of all the leaves below
         void printLeafNodes()
         {
             Node *current = head;
+            //loop over the linked list of the current
             for (int i = 0; i < size; i++)
             {
+                //if leaf print
                 if (current->data->suffixStartIndex != -1)
                 {
                     std::cout << current->data->suffixStartIndex << " ";
@@ -150,7 +162,8 @@ public:
 
         }
 
-        SuffixNode *searchFor(int index, const char *str,int subLen , int len, int temp, char *searchString) {
+        SuffixNode *searchFor(int index, const char *str, int subLen, int len, int temp, char *searchString)
+        {
             Node *current = head;
             int sz = -1;
             for (int i = 0; i < size; i++) // loop on all the suffixes that the node has
@@ -163,7 +176,8 @@ public:
                     {
                         // and if the node is leaf, the size is the length of the string - the start index of the suffix
                         sz = len - current->data->startIndex;
-                    } else
+                    }
+                    else
                     {
                         // else the size = minStartOfChildren  - the start index of the suffix
                         int minStart = current->data->suffixes.getMinNode();
@@ -176,7 +190,8 @@ public:
                         // if the current index doesn't match the new suffix then here we will split the node
                         if (searchString[j] != str[index] && index == subLen)
                         {
-                            if(current->data->suffixStartIndex != -1)
+                            //if the current was a leaf it should be printed
+                            if (current->data->suffixStartIndex != -1)
                             {
                                 std::cout << current->data->suffixStartIndex << " ";
                             }
@@ -185,15 +200,19 @@ public:
                                 current->data->suffixes.printLeafNodes();
                             }
                             return nullptr;
-                        } else if (searchString[j] != str[index] && index < subLen)
+                        }
+                            //we didn't got to the end of the substring and we found char doesn't match
+                        else if (searchString[j] != str[index] && index < subLen)
                         {
                             std::cout << "NOT FOUND! \a" << std::endl;
                             return nullptr;
                         }
                     }
+                    // if we got to the end of the substring and we just ended a edge
                     if (index == subLen)
                     {
-                        if(current->data->suffixStartIndex != -1)
+                        //if the current was a leaf
+                        if (current->data->suffixStartIndex != -1)
                         {
                             std::cout << current->data->suffixStartIndex << " ";
                         }
@@ -203,8 +222,10 @@ public:
                         }
                         return nullptr;
                     }
-                    return current->data->suffixes.searchFor(index, str,subLen, len, temp, searchString);
+                    //recursively search in the linked list of the current
+                    return current->data->suffixes.searchFor(index, str, subLen, len, temp, searchString);
                 }
+                //go to next child if current doesn't match
                 current = current->next;
             }
 
@@ -227,86 +248,60 @@ public:
 };
 
 
-class SuffixTree {
+class SuffixTree{
     SuffixNode *root; // the root of the tree (the first node)
     int len; // the length of the string
     char *str; // pointer to the string
 
 
 public:
-    SuffixTree(char *str, int len) {
+    SuffixTree(char *str)
+    {
         this->str = str;
-        this->len = len;
+        this->len = strlen(str);
         root = new SuffixNode(); // create the root node
         build(); // build the tree by adding all the suffixes to the tree and adding the suffixes of the suffixes  in O(n^2)
     }
 
 
     // O(n^2) time complexity and O(n) space complexity
-    void build() {
-        for (int i = 0; i < len; ++i) {
+    void build()
+    {
+        for (int i = 0; i < len; ++i)
+        {
             root->suffixes.searchToBuild(i, str, root, len, i);
         }
     }
 
     // O(n) time complexity which n is the length of the substring which is being searched for
-    void search(char *s){
+    void search(char *s)
+    {
         size_t sz = strlen(s);
-        root->suffixes.searchFor(0, s, sz,len, 0, str);
-        std::cout<< std::endl;
+        root->suffixes.searchFor(0, s, sz, len, 0, str);
+        std::cout << std::endl;
+    }
+
+    //destructor to delete the allocated space
+    ~SuffixTree()
+    {
+        delete [] str;
     }
 
 
 };
 
 
-
-
-
-
-int main(){
+int main()
+{
     // Construct a suffix tree containing all suffixes of "bananabanaba$"
 
+    //            0123456789012
+    SuffixTree t ("bananabanaba$");
 
-    //              0123456789012
-    char *str =  "bananabanaba$";
-
-
-    SuffixTree *t= new SuffixTree(str, 13);
-//    t->print();
-  char *subStr [] = {"bananabanaba$", "ananabanaba$", "nanabanaba$", "anabanaba$",
-                         "nabanaba$", "abanaba$", "banaba$", "anaba$", "naba$", "aba$",
-                         "ba$", "a$", "$", "ba", "bana", "banan", "banana", "bananab",
-                         "bananaba", "bananaban", "bananabana", "bananabanab", "bananabanaba",
-                         "bananabanaba$", "ananabanaba$", "nanabanaba$", "anabanaba$",
-                         "nabanaba$", "abanaba$", "banaba$", "anaba$", "naba$", "aba$",
-                         "ana", "a$", "$", "ban", "bana", "banan", "banana", "bananab",
-                         "bananaba", "bananaban", "bananabana", "bananabanab", "bananabanaba",
-                         "bananabanaba$"};
-    std::cout<< "String is: " << str << std::endl;
-    for (int i = 0; i < 47; ++i) {
-        std::cout << "Searching for: " << subStr[i] << " ";
-        t->search(subStr[i]);
-    }
-    std::cout << std::endl;
-
-    str = "abracadabra$";
-   t = new SuffixTree(str, 12);
-//    t->print();
-  char*  suffix_array []= {"abracadabra$", "bracadabra$", "racadabra$", "acadabra$", "cadabra$", "adabra$", "dabra$", "abra$", "bra$", "ra$", "a$",
-            "$", "abracadabra", "bracadabra", "racadabra", "acadabra", "cadabra", "adabra", "dabra", "abra", "bra", "ra", "a", "$"};
-
-    for (int i = 0; i < 24; ++i) {
-        std::cout << "Searching for: " << suffix_array[i] << " ";
-        t->search(suffix_array[i]);
-    }
-
-
-    //t.Search("ana"); // Prints: 1 3 7
-    //t.Search("naba"); // Prints: 4 8
+    t.search("ana"); // Prints: 1 3 7
+    t.search("naba"); // Prints: 4 8
 
     // Add test cases here.
-
 
     return 0;
 }
