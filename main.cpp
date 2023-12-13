@@ -4,8 +4,10 @@
 class SuffixNode {
 public:
 
-    int startIndex = -1; // the start index of the substring that the edge has (the index of the first letter of the substring)
-    int suffixStartIndex = -1; // the id of the suffix which will -1 if the node is internal node and will be the index of the suffix if the node is leaf
+    int startIndex = -1;
+    // the start index of the substring that the edge has (the index of the first letter of the substring)
+    int suffixStartIndex = -1;
+    // the id of the suffix which will -1 if the node is internal node and will be the index of the suffix if the node is leaf
 
     // This class represents a node in the linked list
     class Node {
@@ -24,9 +26,12 @@ public:
     // This class represents a linked list of nodes which will be used to store the suffix node of the tree
     class LinkedList {
     public:
-        Node *head; // pointer to the head of the list
-        Node *tail; // pointer to the tail of the list
-        int size = 0; // the size of the list
+        Node *head;
+        // pointer to the head of the list
+        Node *tail;
+        // pointer to the tail of the list
+        int size = 0;
+        // the size of the list
 
         // constructor to initialize the list with null pointers
         LinkedList()
@@ -38,15 +43,18 @@ public:
         // this function inserts a new node in the list
         void insert(SuffixNode *data)
         {
-            size++; // increment the size of the list
+            size++;
+            // increment the size of the list
             Node *newNode = new Node(data, nullptr);
             if (head == nullptr)
             {
-                head = tail = newNode; // if the list is empty, the new node will be the head and the tail
+                head = tail = newNode;
+                // if the list is empty, the new node will be the head and the tail
             }
             else
             {
-                tail->next = newNode; // if the list isn't empty, the new node will be the next of the tail
+                tail->next = newNode;
+                // if the list isn't empty, the new node will be the next of the tail
                 tail = newNode;
             }
         }
@@ -55,11 +63,13 @@ public:
         // this function searches for a substring that matches the new suffix and insert it in the right place
         void searchToBuild(int index, const char *str, SuffixNode *prev, int len, int temp)
         {
-            Node *current = head; // pointer to the head of the list to loop on it to search for the substring that matches the new suffix
-            int sz = -1; // the size of the substring that the edge has
+            Node *current = head;
+            // pointer to the head of the list to loop on it to search for the substring that matches the new suffix
+            int sz = -1;
+            // the size of the substring that the edge has
 
-
-            for (int i = 0; i < size; i++) // loop on all the suffixes that the node has
+            // loop on all the suffixes that the node has
+            for (int i = 0; i < size; i++)
             {
                 // if the node is found, return it
                 if (str[current->data->startIndex] == str[index]) // if the first letter of the suffix is the same as the first letter of the new suffix
@@ -77,7 +87,8 @@ public:
                         sz = minStart - current->data->startIndex;
                     }
 
-                    int j; // index to loop on the substring of the edge to check if it matches the new suffix or not
+                    int j;
+                    // index to loop on the substring of the edge to check if it matches the new suffix or not
 
                     // this for loop to check if the substring matches the new suffix
 
@@ -87,7 +98,8 @@ public:
                         // if the current index doesn't match the new suffix then here we will split the node
                         if (str[j] != str[index++])
                         {
-                            index--; // decrement the index to be the same as the index of the first letter of the new suffix that doesn't match the substring of the edge
+                            index--;
+                            // decrement the index to be the same as the index of the first letter of the new suffix that doesn't match the substring of the edge
                             // sava the id of the suffix of the current node to be used in one of the new nodes
                             int id = current->data->suffixStartIndex;
 
@@ -166,7 +178,8 @@ public:
         {
             Node *current = head; // pointer to the head of the list to loop on it to search for the substring that matches the new suffix
             int sz = -1;
-            for (int i = 0; i < size; i++) // loop on all the suffixes that the node has
+            // loop on all the suffixes that the node has
+            for (int i = 0; i < size; i++)
             {
                 // if the node is found, return it
                 if (searchString[current->data->startIndex] ==
@@ -249,32 +262,41 @@ public:
 
 
 class SuffixTree{
-    SuffixNode *root; // the root of the tree (the first Suffix node)
-    int len; // the length of the string
-    char *str; // pointer to the string
+    // the root of the tree (the first Suffix node)
+    SuffixNode *root;
+    // the length of the string
+    int len;
+    // pointer to the string
+    char *str;
 
 
 public:
     SuffixTree(char *str)
     {
         this->str = str;
-        this->len = strlen(str); // get the length of the string
-        root = new SuffixNode(); // create the root node
-        build(); // build the tree by adding all the suffixes to the tree and adding the suffixes of the suffixes  in O(n^2)
+        // get the length of the string
+        this->len = strlen(str);
+        // create the root node
+        root = new SuffixNode();
+        // build the tree by adding all the suffixes to the tree and adding the suffixes of the suffixes  in O(n^2)
+        build();
     }
 
 
     // O(n^2) time complexity and O(n) space complexity
-    void build() // this function builds the tree by adding all the suffixes to the tree and adding the suffixes of the suffixes
+    // this function builds the tree by adding all the suffixes to the tree and adding the suffixes of the suffixes
+    void build()
     {
         for (int i = 0; i < len; ++i)
         {
-            root->suffixes.searchToBuild(i, str, root, len, i); // search for suitable place to add the suffix
+            // search for suitable place to add the suffix
+            root->suffixes.searchToBuild(i, str, root, len, i);
         }
     }
 
     // O(n) time complexity which n is the length of the substring which is being searched for
-    void search(char *s) // this function acts as an interface for the search function in the linked list class
+    // this function acts as an interface for the search function in the linked list class
+    void search(char *s)
     {
         size_t sz = strlen(s);
 
@@ -290,7 +312,7 @@ int main()
 {
     // Construct a suffix tree containing all suffixes of "bananabanaba$"
 
-    //            0123456789012
+    //                0123456789012
     SuffixTree t ("bananabanaba$");
 
 
