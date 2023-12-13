@@ -18,6 +18,7 @@ public:
             this->data = data;
             this->next = next;
         }
+
     };
 
     // This class represents a linked list of nodes which will be used to store the suffix node of the tree
@@ -310,7 +311,7 @@ int main()
     t.search("bananabanab"); // 0
     t.search("bananabanabaa"); // Prints: NOT FOUND!
 
-                      //01234567890123456789012
+    //01234567890123456789012
     SuffixTree t2 ("abracadabraabracadabra$");
     std::cout << "\nabracadabraabracadabra$\n";
     t2.search("abra"); // Prints: 0 11 7 18
@@ -319,7 +320,7 @@ int main()
     t2.search("abracadabraabra"); // Prints: 0
     t2.search("bra"); // Prints: 1 8 15
     t2.search("bracadabra$"); // Prints: 12
-    t2.search("$");
+    t2.search("$"); // Prints: 22
 
     return 0;
 }
