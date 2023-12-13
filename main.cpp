@@ -295,24 +295,24 @@ int main()
 
 
     // const_cast<char*>("bananabanaba$") is a hack to convert a string literal to a char*
-    
+
     std::cout << "bananabanaba$\n";
     t.search("ana"); // Prints: 1 3 7
     t.search("naba"); // Prints: 4 8
-    t.search(("bananabanaba")); // Prints: 0
+    t.search("bananabanaba"); // Prints: 0
     t.search("a"); // Prints: 1 3 5 7 9 11
     t.search("ba"); // Prints: 0 6 10
     t.search("ana"); // Prints: 1 3 7
     t.search("naba"); // Prints: 4 8
     t.search("ban"); // Prints: 0 6
     t.search("anaba"); // Prints: 7 3
-    t.search("banan"); // Prints: 0
+    t.search("bana"); // Prints: 0 6
     t.search("bananabanab"); // 0
     t.search("bananabanabaa"); // Prints: NOT FOUND!
 
                       //01234567890123456789012
     SuffixTree t2 ("abracadabraabracadabra$");
-    std::cout << "abracadabraabracadabra$\n";
+    std::cout << "\nabracadabraabracadabra$\n";
     t2.search("abra"); // Prints: 0 11 7 18
     t2.search("cadabra"); // Prints: 4 15
     t2.search("abracadabra"); // Prints: 0 11
